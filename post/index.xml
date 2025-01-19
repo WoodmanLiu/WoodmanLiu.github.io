@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Hugo on A minimal Hugo website</title>
-    <link>http://localhost:1313/tags/hugo/</link>
-    <description>Recent content in Hugo on A minimal Hugo website</description>
+    <title>Posts on A minimal Hugo website</title>
+    <link>http://localhost:1313/post/</link>
+    <description>Recent content in Posts on A minimal Hugo website</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 12 Jan 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 16 Jan 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>DDPM 数学原理推导</title>
+      <link>http://localhost:1313/post/2025/01/16/ddpm-%E6%95%B0%E5%AD%A6%E5%8E%9F%E7%90%86%E6%8E%A8%E5%AF%BC/</link>
+      <pubDate>Thu, 16 Jan 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/post/2025/01/16/ddpm-%E6%95%B0%E5%AD%A6%E5%8E%9F%E7%90%86%E6%8E%A8%E5%AF%BC/</guid>
+      <description>&lt;p&gt;首先明确生成任务的目标：训练一个神经网络模型，使其能够将一个从已知概率分布(如标准正态分布)中采样的数据，映射到与真实数据分布相似的结果。换句话说，模型通过学习将简单的随机输入转化为符合真实数据特性的样本，从而实现数据生成。DDPM (Denoising Diffusion Probabilistic Models) 包含两个主要过程：&lt;strong&gt;前向过程&lt;/strong&gt;和&lt;strong&gt;反向过程&lt;/strong&gt;。在前向过程中逐步向原始图像添加噪声，将数据从真实分布转化为简单的高斯分布。而反向过程从高斯噪声开始，逐步去噪，最终恢复数据分布。&lt;/p&gt;&#xA;&lt;h1 id=&#34;1-前向过程&#34;&gt;1. 前向过程&lt;/h1&gt;&#xA;&lt;p&gt;给定一个从真实数据分布中采样的图像 &lt;code&gt;$\mathbf{x_0} \sim q(\mathbf{x})$&lt;/code&gt;，我们逐步向其添加 &lt;code&gt;$T$&lt;/code&gt; 次高斯噪声，得到一系列带噪图像 &lt;code&gt;$\mathbf{x_1},...,\mathbf{x_T}$&lt;/code&gt;，这个过程是一个马尔可夫链：&#xA;&lt;code&gt;$$\begin{equation}q(\mathbf{x}_t | \mathbf{x}_{t-1}) = \mathcal{N}(\mathbf{x}_t; \sqrt{1-\beta_t} \mathbf{x}_{t-1}, \beta_t \mathbf{I})\end{equation}$$&lt;/code&gt;&#xA;其中 &lt;code&gt;$\beta_t$&lt;/code&gt; 是一个控制噪声大小的参数，范围在 &lt;code&gt;$(0,1)$&lt;/code&gt;，该参数随着前向扩散过程的逐步进行而增大。定义 &lt;code&gt;$\alpha_t=1-\beta_t$&lt;/code&gt; 和 &lt;code&gt;$\bar{\alpha}_t = \prod_{s=1}^t \alpha_s$&lt;/code&gt;，通过重参数化技巧，可以将上式改写为：&#xA;&lt;code&gt;$$\begin{equation}\mathbf{x_t}=\sqrt\alpha_t x_{t-1}+\sqrt{1-\alpha_t}\boldsymbol{\epsilon}_{t-1}\end{equation}$$&lt;/code&gt;&lt;/p&gt;</description>
+    </item>
     <item>
       <title>使用 Hugo 和 Github 部署个人主页</title>
       <link>http://localhost:1313/post/2025/01/12/%E4%BD%BF%E7%94%A8-hugo-%E5%92%8C-github-%E9%83%A8%E7%BD%B2%E4%B8%AA%E4%BA%BA%E4%B8%BB%E9%A1%B5/</link>

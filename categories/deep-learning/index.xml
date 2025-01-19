@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Deep Learning on A minimal Hugo website</title>
+    <link>http://localhost:1313/categories/deep-learning/</link>
+    <description>Recent content in Deep Learning on A minimal Hugo website</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 16 Jan 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/categories/deep-learning/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>DDPM 数学原理推导</title>
+      <link>http://localhost:1313/post/2025/01/16/ddpm-%E6%95%B0%E5%AD%A6%E5%8E%9F%E7%90%86%E6%8E%A8%E5%AF%BC/</link>
+      <pubDate>Thu, 16 Jan 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/post/2025/01/16/ddpm-%E6%95%B0%E5%AD%A6%E5%8E%9F%E7%90%86%E6%8E%A8%E5%AF%BC/</guid>
+      <description>&lt;h1 id=&#34;1-前向过程&#34;&gt;1. 前向过程&lt;/h1&gt;&#xA;&lt;p&gt;首先明确生成任务的目标：训练一个神经网络模型，使其能够将一个从已知概率分布(如标准正态分布)中采样的数据，映射到与真实数据分布相似的结果。换句话说，模型通过学习将简单的随机输入转化为符合真实数据特性的样本，从而实现数据生成。因此，DDPM (Denoising Diffusion Probabilistic Models) 在前向过程中逐步向原始图像添加噪声，最后得到一张纯噪声图。&lt;/p&gt;&#xA;&lt;p&gt;给定一个从真实数据分布中采样的图像 $x_0 \sim q(x)$&lt;/p&gt;&#xA;$$&#xA;x_0 \sim q(x)&#xA;$$</description>
+    </item>
+  </channel>
+</rss>

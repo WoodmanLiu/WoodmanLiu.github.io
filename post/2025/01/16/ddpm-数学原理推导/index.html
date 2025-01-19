@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>DDPM 数学原理推导 | A minimal Hugo website</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="/">Homepage</a></li>
+      
+      <li><a href="/about_me/">About Me</a></li>
+      
+      <li><a href="/categories/">Categories</a></li>
+      
+      <li><a href="/tags/">Tags</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">DDPM 数学原理推导</span></h1>
+<h2 class="author">Hanqiao Liu</h2>
+<h2 class="date">2025/01/16</h2>
+</div>
+
+<main>
+<p>首先明确生成任务的目标：训练一个神经网络模型，使其能够将一个从已知概率分布(如标准正态分布)中采样的数据，映射到与真实数据分布相似的结果。换句话说，模型通过学习将简单的随机输入转化为符合真实数据特性的样本，从而实现数据生成。DDPM (Denoising Diffusion Probabilistic Models) 包含两个主要过程：<strong>前向过程</strong>和<strong>反向过程</strong>。在前向过程中逐步向原始图像添加噪声，将数据从真实分布转化为简单的高斯分布。而反向过程从高斯噪声开始，逐步去噪，最终恢复数据分布。</p>
+<h1 id="1-前向过程">1. 前向过程</h1>
+<p>给定一个从真实数据分布中采样的图像 <code>$\mathbf{x_0} \sim q(\mathbf{x})$</code>，我们逐步向其添加 <code>$T$</code> 次高斯噪声，得到一系列带噪图像 <code>$\mathbf{x_1},...,\mathbf{x_T}$</code>，这个过程是一个马尔可夫链：
+<code>$$\begin{equation}q(\mathbf{x}_t | \mathbf{x}_{t-1}) = \mathcal{N}(\mathbf{x}_t; \sqrt{1-\beta_t} \mathbf{x}_{t-1}, \beta_t \mathbf{I})\end{equation}$$</code>
+其中 <code>$\beta_t$</code> 是一个控制噪声大小的参数，范围在 <code>$(0,1)$</code>，该参数随着前向扩散过程的逐步进行而增大。定义 <code>$\alpha_t=1-\beta_t$</code> 和 <code>$\bar{\alpha}_t = \prod_{s=1}^t \alpha_s$</code>，通过重参数化技巧，可以将上式改写为：
+<code>$$\begin{equation}\mathbf{x_t}=\sqrt\alpha_t x_{t-1}+\sqrt{1-\alpha_t}\boldsymbol{\epsilon}_{t-1}\end{equation}$$</code></p>
+
+</main>
+
+  <footer>
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<script src="//cdn.jsdelivr.net/npm/@xiee/utils/js/math-code.min.js" defer></script>
+<script src="//cdn.jsdelivr.net/npm/katex/dist/katex.min.js" defer></script>
+<script src="//cdn.jsdelivr.net/npm/katex/dist/contrib/auto-render.min.js" defer></script>
+<script src="//cdn.jsdelivr.net/npm/@xiee/utils/js/render-katex.js" defer></script>
+
+<script src="//cdn.jsdelivr.net/npm/@xiee/utils/js/center-img.min.js" defer></script>
+  
+  <hr/>
+  Copyright © Hanqiao Liu
+  
+  </footer>
+  </body>
+</html>
+
