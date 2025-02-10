@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Git on A minimal Hugo website</title>
+    <link>http://localhost:1313/categories/git/</link>
+    <description>Recent content in Git on A minimal Hugo website</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 25 Jan 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/categories/git/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Git 连接失败解决方案</title>
+      <link>http://localhost:1313/blog/git-%E8%BF%9E%E6%8E%A5%E5%A4%B1%E8%B4%A5%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</link>
+      <pubDate>Sat, 25 Jan 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/git-%E8%BF%9E%E6%8E%A5%E5%A4%B1%E8%B4%A5%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</guid>
+      <description>&lt;p&gt;当开启 VPN 连接 Github 时，需要确保代理配置正确：&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;git config --global http.proxy http://proxy 127.0.0.1:7897&#xA;git config --global https.proxy https://proxy 127.0.0.1:7897&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;代理 IP 地址在这里查看：&lt;br&gt;&lt;img src=&#34;http://localhost:1313/images/Github 连接失败解决方案/screenshot.png&#34; alt=&#34;screenshot&#34; style=&#34;width: 80%; height: auto&#34; /&gt;&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

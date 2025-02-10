@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>DDPM 数学原理推导 | A minimal Hugo website</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="/">Homepage</a></li>
+      
+      <li><a href="/about_me/">About Me</a></li>
+      
+      <li><a href="/categories/">Categories</a></li>
+      
+      <li><a href="/tags/">Tags</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">DDPM 数学原理推导</span></h1>
+<h2 class="author">Hanqiao Liu</h2>
+<h2 class="date">2025/02/10</h2>
+</div>
+
+<main>
+<p>首先明确生成任务的目标：训练一个神经网络模型，让它把一个从已知概率分布(如标准正态分布)中采样的数据，映射到与真实数据分布相似的结果。换句话说，模型通过学习将简单的随机输入转化为符合真实数据特性的样本，从而实现数据生成。DDPM (Denoising Diffusion Probabilistic Models) 包含两个主要过程：<strong>前向过程</strong>和<strong>反向过程</strong>。在前向过程中逐步向原始图像添加噪声，将数据从真实分布转化为简单的高斯分布；而反向过程从高斯噪声开始，逐步去噪，最终恢复数据分布。</p>
+<h1 id="1-前向过程">1. 前向过程</h1>
+<p>给定一个从真实数据分布中采样的图像 <code>$\mathbf{x}_0\sim q(\mathbf{x})$</code>，我们逐步向其添加 <code>$T$</code> 次高斯噪声，得到一系列带噪图像 <code>$\mathbf{x}_1,...,\mathbf{x}_T$</code>，这个过程是一个马尔可夫链：
+<code>$$\begin{equation}q(\mathbf{x}_t|\mathbf{x}_{t-1})=\mathcal{N}(\mathbf{x}_t;\sqrt{1-\beta_t}\mathbf{x}_{t-1}, \beta_t\mathbf{I})\label{eq1}\end{equation}$$</code>
+其中 <code>$\beta_t$</code> 是一个控制噪声大小的参数，范围在 <code>$(0,1)$</code> 且接近于零，该参数随着前向扩散过程的逐步进行而增大。定义 <code>$\alpha_t=1-\beta_t$</code>，通过重参数化技巧，可以将上式改写为：
+<code>$$\begin{equation}\mathbf{x}_t=\sqrt\alpha_t \mathbf{x}_{t-1}+\sqrt{1-\alpha_t}\boldsymbol{\epsilon}_{t-1}\label{eq2}\end{equation}$$</code>
+其中，<code>$\boldsymbol{\epsilon}_{t-1}\sim\mathcal{N}(\mathbf{0},\mathbf{I})$</code>。这个公式可以这样形象地理解：把图像变淡一点，并在这个基础上撒一点噪声。定义 <code>$\bar{\alpha}_t=\prod_{s=1}^t\alpha_s$</code>，并递归地进行推导：
+<code>$$\begin{equation}\begin{split}\mathbf{x}_t&amp;=\sqrt\alpha_t (\sqrt\alpha_{t-1} \mathbf{x}_{t-2}+\sqrt{1-\alpha_{t-1}}\boldsymbol{\epsilon}_{t-2})+\sqrt{1-\alpha_t}\boldsymbol{\epsilon}_{t-1}\\&amp;=\sqrt{\alpha_t \alpha_{t-1}}\mathbf{x}_{t-2}+\sqrt{\alpha_t-\alpha_t\alpha_{t-1}}\boldsymbol{\epsilon}_{t-2}+\sqrt{1-\alpha_t\boldsymbol{\epsilon}_{t-1}}\\&amp;=\sqrt{\alpha_t \alpha_{t-1}}\mathbf{x}_{t-2}+(1-\alpha_t\alpha_{t-1})\boldsymbol{\bar\epsilon}_{t-2}\\&amp;=...\\&amp;=\sqrt{\bar\alpha_t}\mathbf{x}_0+(1-\bar\alpha_t)\boldsymbol{\epsilon}\end{split}\label{eq3}\end{equation}$$</code>
+其中 <code>$\boldsymbol{\bar\epsilon}_{t-2}$</code> 和 <code>$\boldsymbol{\epsilon}$</code> 是标准正态分布叠加在一起的结果，它们仍然服从标准正态分布。由上式可以看出，当 <code>$t$</code> 特别大时，<code>$\bar\alpha_t$</code> 接近于零，<code>$\mathbf{x}_t$</code> 就变成了零均值的高斯噪声。我们可以由 <code>$\mathbf{x}_0$</code> 一步推导出 <code>$\mathbf{x}_t$</code>：
+<code>$$\begin{equation}q(\mathbf{x}_t|\mathbf{x}_0)=\mathcal{N}(\mathbf{x}_t;\sqrt{\bar\alpha_t}\mathbf{x}_0, (1-\bar\alpha_t)\mathbf{I})\label{eq4}\end{equation}$$</code></p>
+<h1 id="2-反向过程">2. 反向过程</h1>
+<p>反向过程与前向过程相反，是一个去噪的过程。如果我们知道反向过程每一步的分布 <code>$q(\mathbf{x}_{t-1}|\mathbf{x}_t)$</code>，那么就可以从一个随机的高斯噪声开始，逐步去噪，最终得到干净的数据。分布 <code>$q(\mathbf{x}_{t-1}|\mathbf{x}_t)$</code> 很难直接求得，但加上条件 <code>$\mathbf{x_0}$</code> 时，我们把反向过程的每一小步也近似为高斯分布，概率 <code>$q(\mathbf{x}_{t-1}|\mathbf{x}_t,\mathbf{x}_0)$</code> 是可处理的：
+<code>$$\begin{equation}q(\mathbf{x}_{t-1}|\mathbf{x}_t,\mathbf{x}_0)=\mathcal{N}(\mathbf{x}_{t-1};\tilde{\mu}_t,\tilde{\beta}_t\mathbf{I})\label{eq5}\end{equation}$$</code>
+根据贝叶斯公式：
+<code>$$\begin{equation}q(\mathbf{x}_{t-1}|\mathbf{x}_t,\mathbf{x}_0)=\frac{q(\mathbf{x}_t|\mathbf{x}_{t-1},\mathbf{x}_0)q(\mathbf{x}_{t-1}|\mathbf{x}_0)}{q(\mathbf{x}_t|\mathbf{x}_0)}\label{eq6}\end{equation}$$</code>
+DDPM 设定反向过程的每一小步也具有马尔可夫性质，所以有 <code>$q(\mathbf{x}_t|\mathbf{x}_{t-1},\mathbf{x}_0)=q(\mathbf{x}_t|\mathbf{x}_{t-1})$</code>，因此式(<code>$\ref{eq6}$</code>)等号右边的三个概率分布可以根据式(<code>$\ref{eq1}$</code>)和式(<code>$\ref{eq4}$</code>)写出具体的表达式。将这三个高斯分布和式(<code>$\ref{eq3}$</code>)带入式(<code>$\ref{eq6}$</code>)之后，按照式(<code>$\ref{eq5}$</code>)高斯分布的形式，可以得到 <code>$q(\mathbf{x}_{t-1}|\mathbf{x}_t,\mathbf{x}_0)$</code> 的均值和方差：
+<code>$$\begin{equation}\tilde{\mu}_t=\frac{1}{\sqrt{\alpha_t}}(\mathbf{x}_t-\frac{1-\alpha_t}{\sqrt{1-\bar{\alpha}_t}}\boldsymbol{\epsilon}_t)\label{eq7}\end{equation}$$</code>
+<code>$$\begin{equation}\tilde{\beta}_t=\frac{1-\overline{\alpha}_{t-1}}{1-\overline{\alpha}_t}\beta_t\label{eq8}\end{equation}$$</code>
+观察可知，反向过程每一小步的方差是已知的，因此只需要用一个神经网络模型去预测均值 <code>$\tilde{\mu}_t$</code> 即可。而式(<code>$\ref{eq7}$</code>)中除 <code>$\boldsymbol{\epsilon}_t$</code> 以外均为已知量，因此预测均值只需要预测 <code>$\boldsymbol{\epsilon}_t$</code>。</p>
+
+</main>
+
+  <footer>
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<script src="//cdn.jsdelivr.net/npm/@xiee/utils/js/math-code.min.js" defer></script>
+<script src="//cdn.jsdelivr.net/npm/katex/dist/katex.min.js" defer></script>
+<script src="//cdn.jsdelivr.net/npm/katex/dist/contrib/auto-render.min.js" defer></script>
+<script src="//cdn.jsdelivr.net/npm/@xiee/utils/js/render-katex.js" defer></script>
+
+<script src="//cdn.jsdelivr.net/npm/@xiee/utils/js/center-img.min.js" defer></script>
+  
+  <hr/>
+  Copyright © Hanqiao Liu
+  
+  </footer>
+  </body>
+</html>
+

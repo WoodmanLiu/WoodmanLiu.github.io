@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en-us">
-  <head>
-	<meta name="generator" content="Hugo 0.140.2"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Home | A minimal Hugo website</title>
+    <title>Git 连接失败解决方案 | A minimal Hugo website</title>
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/fonts.css" />
     
@@ -26,33 +25,20 @@
     <hr/>
     </nav>
 
+<div class="article-meta">
+<h1><span class="title">Git 连接失败解决方案</span></h1>
+<h2 class="author">Hanqiao Liu</h2>
+<h2 class="date">2025/01/25</h2>
+</div>
 
+<main>
+<p>当开启 VPN 连接 Github 时，需要确保代理配置正确：</p>
+<pre><code>git config --global http.proxy http://proxy 127.0.0.1:7897
+git config --global https.proxy https://proxy 127.0.0.1:7897
+</code></pre>
+<p>代理 IP 地址在这里查看：<br><img src="/images/Github 连接失败解决方案/screenshot.png" alt="screenshot" style="width: 80%; height: auto" /></p>
 
-
-<img src="/images/profile_picture.jpg" style="max-width:15%;min-width:40px;float:right;" alt="Profile picture" />
-<h1 id="hanqiao-lius-homepage">Hanqiao Liu&rsquo;s Homepage</h1>
-
-
-<ul>
-  
-  
-  
-  <li>
-    <span class="date">2025/02/10</span>
-    <a href="/blog/ddpm-%E6%95%B0%E5%AD%A6%E5%8E%9F%E7%90%86%E6%8E%A8%E5%AF%BC/">DDPM 数学原理推导</a>
-  </li>
-  
-  <li>
-    <span class="date">2025/01/25</span>
-    <a href="/blog/git-%E8%BF%9E%E6%8E%A5%E5%A4%B1%E8%B4%A5%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">Git 连接失败解决方案</a>
-  </li>
-  
-  <li>
-    <span class="date">2025/01/12</span>
-    <a href="/blog/%E4%BD%BF%E7%94%A8-hugo-%E5%92%8C-github-%E9%83%A8%E7%BD%B2%E4%B8%AA%E4%BA%BA%E4%B8%BB%E9%A1%B5/">使用 Hugo 和 Github 部署个人主页</a>
-  </li>
-  
-</ul>
+</main>
 
   <footer>
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">

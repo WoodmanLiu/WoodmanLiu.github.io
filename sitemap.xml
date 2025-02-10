@@ -2,10 +2,25 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/categories/</loc>
-    <lastmod>2025-01-16T00:00:00+00:00</lastmod>
+    <loc>http://localhost:1313/blog/</loc>
+    <lastmod>2025-01-25T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post/2025/01/16/ddpm-%E6%95%B0%E5%AD%A6%E5%8E%9F%E7%90%86%E6%8E%A8%E5%AF%BC/</loc>
+    <loc>http://localhost:1313/categories/</loc>
+    <lastmod>2025-01-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/categories/git/</loc>
+    <lastmod>2025-01-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/blog/git-%E8%BF%9E%E6%8E%A5%E5%A4%B1%E8%B4%A5%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</loc>
+    <lastmod>2025-01-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/</loc>
+    <lastmod>2025-01-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/categories/technical-issues/</loc>
+    <lastmod>2025-01-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/blog/ddpm-%E6%95%B0%E5%AD%A6%E5%8E%9F%E7%90%86%E6%8E%A8%E5%AF%BC/</loc>
     <lastmod>2025-01-16T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/categories/deep-learning/</loc>
@@ -14,13 +29,10 @@
     <loc>http://localhost:1313/tags/diffusion-model/</loc>
     <lastmod>2025-01-16T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>http://localhost:1313/categories/diffusion-model/</loc>
+    <lastmod>2025-01-16T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>http://localhost:1313/categories/generative-model/</loc>
-    <lastmod>2025-01-16T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/</loc>
-    <lastmod>2025-01-16T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/post/</loc>
     <lastmod>2025-01-16T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/</loc>
@@ -32,7 +44,7 @@
     <loc>http://localhost:1313/tags/hugo/</loc>
     <lastmod>2025-01-12T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post/2025/01/12/%E4%BD%BF%E7%94%A8-hugo-%E5%92%8C-github-%E9%83%A8%E7%BD%B2%E4%B8%AA%E4%BA%BA%E4%B8%BB%E9%A1%B5/</loc>
+    <loc>http://localhost:1313/blog/%E4%BD%BF%E7%94%A8-hugo-%E5%92%8C-github-%E9%83%A8%E7%BD%B2%E4%B8%AA%E4%BA%BA%E4%B8%BB%E9%A1%B5/</loc>
     <lastmod>2025-01-12T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/about_me/</loc>
